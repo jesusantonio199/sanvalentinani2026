@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Anitza ❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos para Celular (Responsive) */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+                box-sizing: border-box;
+            }
+            .card {
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 15px !important;
+                margin: 0 auto;
+            }
+            .heart-container {
+                width: 160px !important; /* Reducido para que entre en pantalla sin scroll */
+                height: 160px !important;
+                margin-bottom: 10px;
+            }
+            h1 {
+                font-size: 1.2rem; /* Título más compacto */
+                margin-bottom: 8px;
+            }
+            p {
+                font-size: 0.9rem; /* Texto ajustado */
+                margin-bottom: 10px;
+            }
+            input {
+                width: 100% !important;
+                box-sizing: border-box;
+                font-size: 16px; /* Evita zoom en iOS */
+                padding: 12px;
+            }
+            .btn-container {
+                display: flex;
+                flex-direction: column; /* Botones uno debajo del otro en celular */
+                gap: 10px;
+                width: 100%;
+            }
+            button {
+                width: 100%;
+                padding: 12px;
+                font-size: 1.1rem;
+                white-space: normal; /* Para que el texto largo del botón no se corte */
+            }
+            .alert-box {
+                width: 90% !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cartel Izquierdo -->
+    <div class="side-poster" id="left-poster">
+        <!-- Foto Izquierda (Asegúrate de tener la imagen en tu carpeta) -->
+        <img src="Imagen Fotos/1.jpeg" alt="Foto Izquierda" style="width: 100%; border-radius: 10px; display: block;">
+    </div>
+
+    <!-- Cartel Derecho -->
+    <div class="side-poster" id="right-poster">
+        <!-- Foto Derecha -->
+        <img src="Imagen Fotos/2.jpeg" alt="Foto Derecha" style="width: 100%; border-radius: 10px; display: block;">
+    </div>
+
+    <!-- Card de Entrada (Login) -->
+    <div class="card" id="entryCard">
+        <h1>Bienvenida ❤️</h1>
+        <p>Escribe tu nombre para descubrir lo que tengo para ti... ✨</p>
+        <input type="text" id="entryPassword" placeholder="Tu nombre..." autocomplete="off" style="text-transform: uppercase;" oninput="this.value = this.value.toUpperCase()">
+        <div class="btn-container">
+            <button id="entryBtn">Entrar</button>
+        </div>
+        <p id="entryError" class="hidden" style="color: #ff4d6d; margin-top: 15px; font-weight: bold;">Nombre incorrecto ❌</p>
+    </div>
+
+    <!-- Card de Preguntas Iniciales (Oculto al inicio) -->
+    <div class="card hidden" id="questionsCard">
+        <h1 id="questionTitle">Hola Anitza ❤️</h1>
+        <p id="questionText">Antes de pasar a lo importante, tengo unas preguntas...</p>
+        
+        <!-- Campo para escribir la palabra -->
+        <input type="text" id="answerInput" class="hidden" placeholder="Escribe aquí..." autocomplete="off">
+        <div class="btn-container">
+            <button id="nextBtn">Siguiente...</button>
+        </div>
+    </div>
+
+    <!-- Card Principal (Propuesta) - Ahora oculto al inicio -->
+    <div class="card hidden" id="mainCard">
+        <div class="heart-container">
+            <img src="Imagen Fotos/1.jpeg" alt="Nosotros" class="couple-photo">
+        </div>
+        <h1>Bienvenida a este detalle tan especial que hice para ti, Anitza Coronel 🌹</h1>
+        <p>Eres lo más bonito que tengo y quiero preguntarte algo muy especial...</p>
+        <p><strong>¿Quieres ser mi San Valentín?</strong></p>
+        
+        <div class="btn-container">
+            <button id="yesBtn">¡Sí, claro!</button>
+        </div>
+    </div>
+
+    <!-- Contenedor para el mensaje final -->
+    <div class="card hidden" id="successCard">
+        <h1>¡Sabía que dirías que sí, mi amor! ❤️</h1>
+        <p>Me haces la persona más feliz. Nos vemos Hoy 14 de febrero.</p>
+        <!-- Aquí se mostrará la palabra que ella escribió -->
+        <p id="displayWord" style="font-weight: bold; color: #ff4d6d; font-size: 1.2rem;"></p>
+        <div style="font-size: 50px;">🥰🐻🍫</div>
+        <a href="galeria.html" class="gallery-btn">Ver Nuestros Recuerdos 📸</a>
+    </div>
+
+    <!-- Alerta Personalizada (Ventana Emergente) -->
+    <div id="customAlert" class="custom-alert hidden">
+        <div class="alert-box">
+            <p id="alertMessage">⚠️ Mensaje de alerta</p>
+            <button id="closeAlertBtn">Entendido</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

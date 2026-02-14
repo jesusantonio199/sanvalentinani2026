@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestros Momentos ❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Ajustes específicos para la galería (permite hacer scroll) */
+        body {
+            height: auto !important;
+            min-height: 100vh;
+            overflow-y: auto !important; /* Habilita el scroll vertical */
+            display: block !important;
+            padding: 20px 0;
+            font-family: 'Poppins', sans-serif;
+            background-image: url('Imagen/top-view-ornaments-valentines-day.jpg'); /* La otra foto */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Dancing Script', cursive; /* Fuente romántica */
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: #d63384;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+            margin-bottom: 10px;
+        }
+
+        /* Estilo mejorado para las Cajas Misteriosas */
+        .mystery-box {
+            width: 160px;
+            height: 160px;
+            background: rgba(255, 255, 255, 0.9); /* Blanco semitransparente */
+            border: 3px dashed #ff4d6d; /* Borde punteado romántico */
+            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* --- Ajustes para iPhone 11 y Móviles --- */
+        @media (max-width: 450px) {
+            h1 { font-size: 2.5rem; }
+            .gallery-grid { gap: 15px; }
+            .photo-card {
+                width: 42%; /* Ajuste para que quepan 2 tarjetas cómodamente */
+                height: auto;
+                min-height: 190px;
+            }
+            .mystery-box {
+                width: 130px; /* Cajas un poco más pequeñas */
+                height: 130px;
+            }
+            .mystery-box span { font-size: 2.5rem; }
+            .mystery-box p { font-size: 1.1rem !important; }
+        }
+
+        .mystery-box:hover {
+            transform: scale(1.1);
+            background: white;
+            box-shadow: 0 0 30px rgba(255, 77, 109, 0.6);
+            border-color: #d63384;
+        }
+
+        .mystery-box span {
+            font-size: 3.5rem;
+            margin-bottom: 5px;
+        }
+
+        .mystery-box:nth-child(2) {
+            animation-delay: 1.5s;
+            /* Quitamos el fondo rosa anterior */
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Efecto de Transición (Pantalla Blanca) */
+        #transition-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: white; z-index: 9999;
+            opacity: 0; pointer-events: none;
+            transition: opacity 1.2s ease; /* Duración del efecto */
+        }
+
+        /* CORRECCIÓN: Estilos para que las fotos del modal no se vean encimadas */
+        #modalSlideshow .slide {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        #modalSlideshow .slide.active {
+            opacity: 1;
+        }
+
+        /* CORRECCIÓN: Scroll en el modal para leer todo el texto */
+        .modal-content {
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        @media (max-width: 600px) {
+            #modalSlideshow { height: 35vh !important; }
+        }
+
+        /* Para que la tarjeta no se haga gigante con el texto largo */
+        .text-preview {
+            display: -webkit-box;
+            -webkit-line-clamp: 5; /* Muestra solo 5 líneas */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="transition-overlay"></div>
+
+    <!-- Contenido Principal -->
+    <div class="gallery-container" id="mainGallery">
+        <h1>Nuestra Historia 📸</h1>
+        <p>Cada foto tiene una historia y un pedacito de mi corazón...</p>
+        
+        <!-- Cuadrícula de Fotos Pequeñas -->
+        <div class="gallery-grid">
+            
+            <!-- FOTO 1 -->
+            <div class="photo-card" id="card1" onclick="openModal([
+                'Imagen Carrusel 1/IMG_0112.jpg', 
+                'Imagen Carrusel 1/IMG_0123.jpg', 
+                'Imagen Carrusel 1/IMG_9068.jpg',
+                'Imagen Carrusel 1/IMG_9069.jpg',
+                'Imagen Carrusel 1/IMG_9071.jpg',
+                'Imagen Carrusel 1/IMG_9073.jpg',
+                'Imagen Carrusel 1/IMG_9074.jpg',
+                'Imagen Carrusel 1/IMG_9075.jpg',
+                'Imagen Carrusel 1/IMG_9076.jpg',
+                'Imagen Carrusel 1/IMG_9077.jpg',
+                'Imagen Carrusel 1/IMG_9224.jpg',
+                'Imagen Carrusel 1/IMG_9226.jpg',
+                'Imagen Carrusel 1/IMG_9227.jpg',
+                'Imagen Carrusel 1/IMG_9397.jpg',
+                'Imagen Carrusel 1/IMG_9398.jpg',
+                'Imagen Carrusel 1/IMG_9399.jpg',
+                'Imagen Carrusel 1/IMG_9400.jpg',
+                'Imagen Carrusel 1/IMG_9527.jpg',
+                'Imagen Carrusel 1/IMG_9537.jpg',
+                'Imagen Carrusel 1/IMG_9664.jpg',
+                'Imagen Carrusel 1/IMG_9667.jpg',
+                'Imagen Carrusel 1/IMG_9668.jpg'
+            ], 'Momento especial', '“Nuestras fotos no son simples recuerdos, son pequeños tesoros que guardan emociones que aún se sienten vivas. En cada imagen hay una historia, una risa compartida, una mirada que lo dice todo sin necesidad de hablar. Son instantes que el tiempo no pudo borrar, momentos que se quedaron grabados en el alma y que cada vez que los miro me hacen sentir la misma magia, la misma conexión, el mismo amor. Porque más que fotografías, son fragmentos de nosotros, pruebas de todo lo que hemos vivido y de lo profundo que late lo nuestro ❤️.”'); unlock('card2')" style="height: auto; min-height: 200px; background: linear-gradient(180deg, #fff0f3 0%, #ffe6e9 100%); border: 2px solid #ff4d6d; box-shadow: 0 0 20px rgba(255, 77, 109, 0.3);">
+                <!-- Rollo de Fotos en Movimiento -->
+                <div class="slideshow-container">
+                    <img src="Imagen Carrusel 1/IMG_0112.jpg" class="slide active" alt="Foto 1">
+                    <img src="Imagen Carrusel 1/IMG_0123.jpg" class="slide" alt="Foto 2">
+                    <img src="Imagen Carrusel 1/IMG_9068.jpg" class="slide" alt="Foto 3">
+                    <img src="Imagen Carrusel 1/IMG_9069.jpg" class="slide" alt="Foto 4">
+                    <img src="Imagen Carrusel 1/IMG_9071.jpg" class="slide" alt="Foto 5">
+                    <img src="Imagen Carrusel 1/IMG_9073.jpg" class="slide" alt="Foto 6">
+                    <img src="Imagen Carrusel 1/IMG_9074.jpg" class="slide" alt="Foto 7">
+                    <img src="Imagen Carrusel 1/IMG_9075.jpg" class="slide" alt="Foto 8">
+                    <img src="Imagen Carrusel 1/IMG_9076.jpg" class="slide" alt="Foto 9">
+                    <img src="Imagen Carrusel 1/IMG_9077.jpg" class="slide" alt="Foto 10">
+                    <img src="Imagen Carrusel 1/IMG_9224.jpg" class="slide" alt="Foto 11">
+                    <img src="Imagen Carrusel 1/IMG_9226.jpg" class="slide" alt="Foto 12">
+                    <img src="Imagen Carrusel 1/IMG_9227.jpg" class="slide" alt="Foto 13">
+                    <img src="Imagen Carrusel 1/IMG_9397.jpg" class="slide" alt="Foto 14">
+                    <img src="Imagen Carrusel 1/IMG_9398.jpg" class="slide" alt="Foto 15">
+                    <img src="Imagen Carrusel 1/IMG_9399.jpg" class="slide" alt="Foto 16">
+                    <img src="Imagen Carrusel 1/IMG_9400.jpg" class="slide" alt="Foto 17">
+                    <img src="Imagen Carrusel 1/IMG_9527.jpg" class="slide" alt="Foto 18">
+                    <img src="Imagen Carrusel 1/IMG_9537.jpg" class="slide" alt="Foto 19">
+                    <img src="Imagen Carrusel 1/IMG_9664.jpg" class="slide" alt="Foto 20">
+                    <img src="Imagen Carrusel 1/IMG_9667.jpg" class="slide" alt="Foto 21">
+                    <img src="Imagen Carrusel 1/IMG_9668.jpg" class="slide" alt="Foto 22">
+                </div>
+                <h3>Momento especial</h3>
+                <p class="text-preview" style="font-size: 0.85rem; color: #880e4f; margin: 5px 0 0; font-style: italic;">“Nuestras fotos no son simples recuerdos, son pequeños tesoros que guardan emociones que aún se sienten vivas. En cada imagen hay una historia, una risa compartida, una mirada que lo dice todo sin necesidad de hablar. Son instantes que el tiempo no pudo borrar, momentos que se quedaron grabados en el alma y que cada vez que los miro me hacen sentir la misma magia, la misma conexión, el mismo amor. Porque más que fotografías, son fragmentos de nosotros, pruebas de todo lo que hemos vivido y de lo profundo que late lo nuestro ❤️.”</p>
+            </div>
+
+            <!-- FOTO 2 -->
+            <div class="photo-card locked" id="card2" onclick="openModal([
+                'Imagen Carrusel 2/WhatsApp Image 2026-02-13 at 3.13.01 PM (1).jpeg',
+                'Imagen Carrusel 2/WhatsApp Image 2026-02-13 at 3.13.01 PM (2).jpeg',
+                'Imagen Carrusel 2/WhatsApp Image 2026-02-13 at 3.13.01 PM (3).jpeg',
+                'Imagen Carrusel 2/WhatsApp Image 2026-02-13 at 3.13.01 PM.jpeg',
+                'Imagen Carrusel 2/WhatsApp Image 2026-02-13 at 3.13.02 PM (1).jpeg',
+                'Imagen Carrusel 2/WhatsApp Image 2026-02-13 at 3.13.02 PM (2).jpeg',
+                'Imagen Carrusel 2/WhatsApp Image 2026-02-13 at 3.13.02 PM (3).jpeg',
+                'Imagen Carrusel 2/WhatsApp Image 2026-02-13 at 3.13.02 PM (4).jpeg',
+                'Imagen Carrusel 2/WhatsApp Image 2026-02-13 at 3.13.02 PM.jpeg',
+                'Imagen Carrusel 2/WhatsApp Image 2026-02-13 at 3.13.03 PM (1).jpeg',
+                'Imagen Carrusel 2/WhatsApp Image 2026-02-13 at 3.13.03 PM.jpeg'
+            ], 'Nuestra Sonrisa', 'Tu sonrisa tiene algo que me encanta. No sé cómo lo haces, pero cada vez que sonríes logras que mi día mejore. Me gusta verte feliz, porque tu alegría se siente sincera y contagiosa. Tu sonrisa es sencilla, pero para mí significa mucho. Tiene esa luz que calma y al mismo tiempo alegra el corazón. Y la verdad… siempre quiero ser parte de la razón por la que sonríes. 💫'); unlock('card3')" style="height: auto; min-height: 200px; background: linear-gradient(180deg, #fff0f3 0%, #ffe6e9 100%); border: 2px solid #ff4d6d; box-shadow: 0 0 20px rgba(255, 77, 109, 0.3);">
+                <!-- Rollo de Fotos en Movimiento -->
+                <div class="slideshow-container">
+                    <img src="Imagen Carrusel 2/WhatsApp Image 2026-02-13 at 3.13.01 PM (1).jpeg" class="slide active" alt="Foto 1">
+                    <img src="Imagen Carrusel 2/WhatsApp Image 2026-02-13 at 3.13.01 PM (2).jpeg" class="slide" alt="Foto 2">
+                    <img src="Imagen Carrusel 2/WhatsApp Image 2026-02-13 at 3.13.01 PM (3).jpeg" class="slide" alt="Foto 3">
+                    <img src="Imagen Carrusel 2/WhatsApp Image 2026-02-13 at 3.13.01 PM.jpeg" class="slide" alt="Foto 4">
+                    <img src="Imagen Carrusel 2/WhatsApp Image 2026-02-13 at 3.13.02 PM (1).jpeg" class="slide" alt="Foto 5">
+                    <img src="Imagen Carrusel 2/WhatsApp Image 2026-02-13 at 3.13.02 PM (2).jpeg" class="slide" alt="Foto 6">
+                    <img src="Imagen Carrusel 2/WhatsApp Image 2026-02-13 at 3.13.02 PM (3).jpeg" class="slide" alt="Foto 7">
+                    <img src="Imagen Carrusel 2/WhatsApp Image 2026-02-13 at 3.13.02 PM (4).jpeg" class="slide" alt="Foto 8">
+                    <img src="Imagen Carrusel 2/WhatsApp Image 2026-02-13 at 3.13.02 PM.jpeg" class="slide" alt="Foto 9">
+                    <img src="Imagen Carrusel 2/WhatsApp Image 2026-02-13 at 3.13.03 PM (1).jpeg" class="slide" alt="Foto 10">
+                    <img src="Imagen Carrusel 2/WhatsApp Image 2026-02-13 at 3.13.03 PM.jpeg" class="slide" alt="Foto 11">
+                </div>
+                <h3>Nuestra Sonrisa</h3>
+                <p class="text-preview" style="font-size: 0.85rem; color: #880e4f; margin: 5px 0 0; font-style: italic;">Tu sonrisa tiene algo que me encanta. No sé cómo lo haces, pero cada vez que sonríes logras que mi día mejore. Me gusta verte feliz, porque tu alegría se siente sincera y contagiosa. Tu sonrisa es sencilla, pero para mí significa mucho. Tiene esa luz que calma y al mismo tiempo alegra el corazón. Y la verdad… siempre quiero ser parte de la razón por la que sonríes. 💫</p>
+            </div>
+
+            <!-- FOTO 3 -->
+            <div class="photo-card locked" id="card3" onclick="openModal([
+                'Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.29 PM (1).jpeg',
+                'Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.29 PM.jpeg',
+                'Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.30 PM (1).jpeg',
+                'Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.30 PM (2).jpeg',
+                'Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.30 PM (3).jpeg',
+                'Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.30 PM (4).jpeg',
+                'Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.30 PM (5).jpeg',
+                'Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.30 PM.jpeg',
+                'Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.31 PM (1).jpeg',
+                'Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.31 PM (2).jpeg',
+                'Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.31 PM (3).jpeg',
+                'Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.31 PM (4).jpeg',
+                'Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.31 PM.jpeg',
+                'Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.32 PM.jpeg'
+            ], 'Siempre Juntos', 'Me encanta pensar que lo nuestro no es casualidad, que somos ese “siempre juntos” que se construye todos los días con detalles pequeños y sinceros. No prometo un camino perfecto, pero sí caminarlo a tu lado, apoyarnos, reírnos en medio de todo y no soltarnos cuando algo se ponga difícil. Porque más que un lugar o un momento, lo que realmente quiero es seguir eligiéndonos y saber que, pase lo que pase, estamos juntos. 💑❤️'); unlock('opt1')" style="height: auto; min-height: 200px; background: linear-gradient(180deg, #fff0f3 0%, #ffe6e9 100%); border: 2px solid #ff4d6d; box-shadow: 0 0 20px rgba(255, 77, 109, 0.3);">
+                <!-- Rollo de Fotos en Movimiento -->
+                <div class="slideshow-container">
+                    <img src="Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.29 PM (1).jpeg" class="slide active" alt="Foto 1">
+                    <img src="Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.29 PM.jpeg" class="slide" alt="Foto 2">
+                    <img src="Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.30 PM (1).jpeg" class="slide" alt="Foto 3">
+                    <img src="Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.30 PM (2).jpeg" class="slide" alt="Foto 4">
+                    <img src="Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.30 PM (3).jpeg" class="slide" alt="Foto 5">
+                    <img src="Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.30 PM (4).jpeg" class="slide" alt="Foto 6">
+                    <img src="Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.30 PM (5).jpeg" class="slide" alt="Foto 7">
+                    <img src="Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.30 PM.jpeg" class="slide" alt="Foto 8">
+                    <img src="Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.31 PM (1).jpeg" class="slide" alt="Foto 9">
+                    <img src="Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.31 PM (2).jpeg" class="slide" alt="Foto 10">
+                    <img src="Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.31 PM (3).jpeg" class="slide" alt="Foto 11">
+                    <img src="Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.31 PM (4).jpeg" class="slide" alt="Foto 12">
+                    <img src="Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.31 PM.jpeg" class="slide" alt="Foto 13">
+                    <img src="Imagen Carrusel 3/WhatsApp Image 2026-02-13 at 3.29.32 PM.jpeg" class="slide" alt="Foto 14">
+                </div>
+                <h3>Siempre Juntos</h3>
+                <p class="text-preview" style="font-size: 0.85rem; color: #880e4f; margin: 5px 0 0; font-style: italic;">Me encanta pensar que lo nuestro no es casualidad, que somos ese “siempre juntos” que se construye todos los días con detalles pequeños y sinceros. No prometo un camino perfecto, pero sí caminarlo a tu lado, apoyarnos, reírnos en medio de todo y no soltarnos cuando algo se ponga difícil. Porque más que un lugar o un momento, lo que realmente quiero es seguir eligiéndonos y saber que, pase lo que pase, estamos juntos. 💑❤️</p>
+            </div>
+
+        </div>
+
+        <!-- Opciones Misteriosas (Aparecen después) -->
+        <div class="mystery-options">
+            <a href="#" class="mystery-box locked" id="opt1" onclick="goToCalendar(event)">
+                <span>🎁</span>
+                <p style="color: #ff4d6d; font-family: 'Dancing Script', cursive; font-size: 1.5rem; margin: 0;">Sorpresa 1</p>
+            </a>
+            <a href="invitacion.html" class="mystery-box locked" id="opt2">
+                <span>💌</span>
+                <p style="color: #ff4d6d; font-family: 'Dancing Script', cursive; font-size: 1.5rem; margin: 0;">Sorpresa 2</p>
+            </a>
+        </div>
+
+        <div class="btn-container" style="margin-top: 40px;">
+            <a href="sanvalentin.html" class="back-btn">Volver al inicio</a>
+        </div>
+    </div>
+
+    <!-- Modal para ver foto en grande -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modalSlideshow" style="width: 100%; height: 60vh; position: relative; margin-bottom: 15px;"></div>
+            <h2 id="modalTitle" style="color: #ff4d6d; margin-bottom: 10px;"></h2>
+            <p id="modalDesc" style="color: #555; font-size: 1.1rem;"></p>
+        </div>
+    </div>
+
+    <script>
+
+        // Restaurar el progreso guardado al cargar la página
+        document.addEventListener("DOMContentLoaded", () => {
+            const saved = JSON.parse(localStorage.getItem('galleryUnlocked')) || [];
+            saved.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.remove('locked');
+            });
+
+            // TRUCO: Doble clic en el título para reiniciar el progreso y probar de nuevo
+            document.querySelector('h1').addEventListener('dblclick', () => {
+                localStorage.removeItem('galleryUnlocked');
+                location.reload();
+                alert("Progreso reiniciado para pruebas 🔄");
+            });
+        });
+
+        let modalInterval; // Variable para controlar el movimiento en el modal
+
+        // Funciones del Modal
+        function openModal(images, title, desc) {
+            const container = document.getElementById('modalSlideshow');
+            container.innerHTML = ''; // Limpiar fotos anteriores
+            
+            // Convertir a lista si es una sola foto (para compatibilidad)
+            const imgList = Array.isArray(images) ? images : [images];
+
+            // Crear las imágenes dentro del modal
+            imgList.forEach((src, index) => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.className = index === 0 ? 'slide active' : 'slide';
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'contain'; // Para que se vea la foto completa
+                img.style.position = 'absolute';
+                img.style.top = '0';
+                img.style.left = '0';
+                container.appendChild(img);
+            });
+
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDesc').innerText = desc;
+            
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'flex';
+
+            // Iniciar movimiento si hay más de una foto
+            if (imgList.length > 1) {
+                let idx = 0;
+                const slides = container.querySelectorAll('.slide');
+                if (modalInterval) clearInterval(modalInterval); // Reiniciar timer
+                
+                modalInterval = setInterval(() => {
+                    slides[idx].classList.remove('active');
+                    idx = (idx + 1) % slides.length;
+                    slides[idx].classList.add('active');
+                }, 2500);
+            }
+        }
+        
+        function unlock(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.classList.remove('locked');
+                
+                // Guardar progreso en localStorage para no perderlo al volver
+                let saved = JSON.parse(localStorage.getItem('galleryUnlocked')) || [];
+                if (!saved.includes(id)) {
+                    saved.push(id);
+                    localStorage.setItem('galleryUnlocked', JSON.stringify(saved));
+                }
+            }
+        }
+
+        function goToCalendar(e) {
+            e.preventDefault(); // Evita ir de golpe
+            unlock('opt2'); // Desbloquea la siguiente sorpresa
+            
+            // Activa el efecto de pantalla blanca
+            const overlay = document.getElementById('transition-overlay');
+            overlay.style.opacity = '1';
+            
+            // Espera 1 segundo y cambia de página
+            setTimeout(() => {
+                window.location.href = 'calendario_poster.html';
+            }, 1000);
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+            if (modalInterval) clearInterval(modalInterval); // Detener movimiento al cerrar
+        }
+
+        // Función para el Rollo de Fotos (Slideshow)
+        function startSlideshow() {
+            const containers = document.querySelectorAll('.slideshow-container');
+            containers.forEach(container => {
+                const slides = container.querySelectorAll('.slide');
+                let index = 0;
+                if(slides.length > 0) {
+                    setInterval(() => {
+                        slides[index].classList.remove('active');
+                        index = (index + 1) % slides.length;
+                        slides[index].classList.add('active');
+                    }, 2500); // Cambia de foto cada 2.5 segundos
+                }
+            });
+        }
+        
+        // Iniciar el movimiento
+        startSlideshow();
+
+        // Lluvia de corazones suave
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.style.position = 'fixed';
+            heart.style.top = '-20px';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heart.style.animation = 'fall ' + (Math.random() * 3 + 2) + 's linear';
+            heart.style.zIndex = '-1'; // Detrás del contenido
+            document.body.appendChild(heart);
+            
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+        setInterval(createHeart, 500); // Corazones cada medio segundo
+
+    </script>
+</body>
+</html>

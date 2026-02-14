@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación Especial 🍽️</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            height: auto;
+            min-height: 100vh;
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .invitation-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            border: 3px dashed #ff4d6d; /* Borde tipo cupón/ticket */
+            position: relative;
+            margin: 20px auto;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .details-box {
+            background: #fff0f3;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        @media (max-width: 450px) {
+            .invitation-card { padding: 20px; width: 90%; }
+            h1 { font-size: 1.6rem !important; }
+            p { font-size: 1rem !important; }
+        }
+        .details-box p {
+            margin: 10px 0;
+            color: #333;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="invitation-card">
+        <h1 style="color: #ff4d6d; font-size: 2rem; margin-bottom: 10px;">💌 Invitación a Cena 💌</h1>
+        <p style="font-size: 1.2rem; color: #555;">Porque cada momento contigo es un regalo, quiero invitarte a una noche mágica y especial.</p>
+        
+        <div class="details-box">
+            <h2 style="margin-top: 0; color: #d63384; text-align: center;">✨ Detalles de la Cita ✨</h2>
+            <p><strong>🍽️ Lugar:</strong> [Mishkitushpa O Restaurant Anticucheria al paso "Tío Bolón"]</p>
+            <p><strong>📅 Fecha:</strong> 14 de Febrero</p>
+            <p><strong>⏰ Hora:</strong> 9:00 PM</p>
+            <p><strong>👗 Código:</strong> Ponte hermosa (como siempre)</p>
+        </div>
+
+        <p style="font-style: italic; color: #888;">"La mejor compañía, la mejor comida y el mejor amor." ❤️</p>
+
+        <a href="galeria.html" class="gallery-btn" style="margin-top: 20px;">Aceptar Invitación ✅</a>
+    </div>
+
+</body>
+</html>

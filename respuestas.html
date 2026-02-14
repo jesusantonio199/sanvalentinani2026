@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respuestas Secretas ❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos para Celular (Responsive) */
+        @media (max-width: 600px) {
+            body {
+                padding: 15px; /* Espacio a los lados */
+                box-sizing: border-box;
+            }
+            .card {
+                width: 100% !important; /* Ocupar todo el ancho disponible */
+                max-width: 100% !important;
+                padding: 20px !important;
+            }
+            input {
+                width: 100% !important;
+                box-sizing: border-box;
+                font-size: 16px; /* Evita que el iPhone haga zoom al escribir */
+                padding: 12px;
+            }
+            button {
+                width: 100%; /* Botón grande para tocar fácil */
+                padding: 15px;
+                font-size: 1.1rem;
+                margin-top: 10px;
+            }
+            #answersList {
+                max-height: 50vh !important; /* Lista scrolleable más cómoda */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Tarjeta de Login -->
+    <div class="card" id="loginCard">
+        <h1>Acceso Privado 🔒</h1>
+        <p>Introduce la contraseña para ver las respuestas de Anitza.</p>
+        
+        <input type="password" id="passwordInput" placeholder="Contraseña..." autocomplete="off">
+        
+        <div class="btn-container">
+            <button id="loginBtn">Entrar</button>
+        </div>
+        <p id="errorMsg" style="color: #ff4d6d; display: none; margin-top: 15px; font-weight: bold;">⚠️ Contraseña incorrecta</p>
+    </div>
+
+    <!-- Tarjeta de Respuestas (Oculta al inicio) -->
+    <div class="card hidden" id="answersCard">
+        <h1>Respuestas de Anitza 🌹</h1>
+        <div id="answersList" style="text-align: left; max-height: 400px; overflow-y: auto; margin-bottom: 20px;">
+            <!-- Aquí aparecerán las respuestas -->
+        </div>
+        <div class="btn-container">
+            <button onclick="location.reload()">Cerrar Sesión</button>
+        </div>
+    </div>
+
+    <script>
+        const loginBtn = document.getElementById('loginBtn');
+        const passwordInput = document.getElementById('passwordInput');
+        const loginCard = document.getElementById('loginCard');
+        const answersCard = document.getElementById('answersCard');
+        const answersList = document.getElementById('answersList');
+        const errorMsg = document.getElementById('errorMsg');
+
+        // Contraseña definida
+        const PASSWORD = "JESUS";
+
+        loginBtn.addEventListener('click', () => {
+            // Convertimos a mayúsculas para que no importe si escribe en minúsculas
+            const inputVal = passwordInput.value.trim().toUpperCase();
+
+            if (inputVal === PASSWORD) {
+                loginCard.classList.add('hidden');
+                answersCard.classList.remove('hidden');
+                loadAnswers();
+            } else {
+                errorMsg.style.display = 'block';
+            }
+        });
+
+        function loadAnswers() {
+            const data = localStorage.getItem('valentines_answers');
+            answersList.innerHTML = ""; // Limpiar lista
+
+            if (data) {
+                const answers = JSON.parse(data);
+                answers.forEach((item, index) => {
+                    const p = document.createElement('p');
+                    p.style.borderBottom = "1px solid #eee";
+                    p.style.paddingBottom = "10px";
+                    p.innerHTML = `<strong style="color: #ff4d6d;">${index + 1}. ${item.question}</strong><br><span style="color: #333;">${item.answer}</span>`;
+                    answersList.appendChild(p);
+                });
+            } else {
+                answersList.innerHTML = "<p>No hay respuestas guardadas en este dispositivo todavía.</p>";
+            }
+        }
+    </script>
+</body>
+</html>

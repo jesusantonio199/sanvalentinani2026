@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Generador de Calendario 2026</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body {
+            background: #333; /* Fondo oscuro neutro por defecto */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            height: auto;
+            margin: 0;
+            font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+            overflow-y: auto; /* Permitir scroll */
+            padding: 20px 0;
+            /* Animación de entrada al calendario */
+            animation: enterPage 1.5s ease-out;
+        }
+
+        @keyframes enterPage {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .poster {
+            /* Formato A4 Vertical */
+            width: 850px;
+            max-width: 95vw;
+            aspect-ratio: 210/297; /* Proporción hoja de papel */
+            background-color: white;
+            /* AQUI CAMBIAS LA IMAGEN DE FONDO DEL CALENDARIO */
+            background-image: url('Imagen/top-view-ornaments-valentines-day.jpg');
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: 100px repeat(4, 1fr); /* Header + 4 filas */
+            gap: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            background-size: cover;
+            background-position: center;
+            transform-origin: top center; /* Escalar desde arriba en celular */
+        }
+        
+        /* Cabecera del Calendario */
+        .calendar-header {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255,255,255,0.9);
+            border-radius: 10px;
+            text-align: center;
+            color: #ff4d6d;
+            margin-bottom: 0;
+        }
+        .calendar-header h1 { margin: 0; font-size: 2.5rem; text-transform: uppercase; }
+        .calendar-header h2 { margin: 0; font-size: 1.2rem; color: #333; }
+
+        .month-card {
+            background-color: rgba(255, 255, 255, 0.85); /* Fondo semitransparente para ver el fondo */
+            width: 100%;
+            height: 100%;
+            padding: 5px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* Alineación superior fija para que no bailen */
+        }
+        .month-card:hover { transform: none; }
+
+        .photo-area {
+            width: 100%;
+            height: 100px; /* Reducido para caber en A4 */
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            margin-bottom: 5px;
+            overflow: hidden;
+            flex-shrink: 0; /* Asegura que la foto mantenga su tamaño exacto siempre */
+        }
+        .photo-area img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .month-name {
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            color: #222;
+            border-bottom: 2px solid #ddd; /* Detalle de color neutro */
+            padding-bottom: 2px;
+        }
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 0;
+        }
+        .day {
+            font-size: 0.7rem;
+            color: #555;
+        }
+        .day-header {
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 2px;
+            font-size: 0.7rem;
+        }
+        .download-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-weight: bold;
+            transition: transform 0.2s;
+            text-decoration: none; /* Para que el link no tenga subrayado */
+        }
+        .download-btn:hover { transform: scale(1.1); }
+
+        .card-download-btn {
+            display: none; /* Ocultamos botones individuales */
+        }
+
+        /* Ajustes para celular */
+        @media (max-width: 600px) {
+            .download-btn {
+                padding: 10px 15px; /* Botones más compactos */
+                font-size: 0.8rem;
+                bottom: 10px;
+                right: 10px !important;
+            }
+            /* En celular ocultamos el botón de descarga grande para que no estorbe */
+            #downloadBtn {
+                display: none; 
+            }
+            /* El botón de ir a galería se ajusta solo a la derecha */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="poster" id="calendarPoster">
+        <div class="calendar-header">
+            <h1>2026</h1>
+            <h2>Nuestro Año Juntos ❤️</h2>
+        </div>
+        <!-- El contenido se genera automáticamente con JavaScript -->
+    </div>
+    
+    <button id="downloadBtn" class="download-btn" style="right: 180px;">Descargar 📸</button>
+    <a href="galeria.html" class="download-btn" style="background: #333;">Volver ↩️</a>
+
+    <script>
+        const months = ["ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DIC"];
+        const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]; // Días estándar
+        let startDay = 4; // Enero 1 de 2026 cae Jueves (0=Dom, 1=Lun, ... 4=Jue)
+
+        const poster = document.getElementById('calendarPoster');
+
+        // Función para ajustar el calendario al ancho del celular (iPhone 11)
+        function resizePoster() {
+            const width = window.innerWidth;
+            if (width < 870) {
+                const scale = (width - 20) / 850; // Calcula la escala para que quepa
+                poster.style.transform = `scale(${scale})`;
+                poster.style.marginBottom = `-${(850 * (1 - scale)) * 1.4}px`; // Elimina el espacio vacío extra
+            }
+        }
+        window.addEventListener('resize', resizePoster);
+        window.addEventListener('load', resizePoster);
+
+        // --- AQUÍ PONES TUS FOTOS ---
+        // Ruta exacta: D:\PROYECTO VISUAL CODE\CALENDARIO\NombreDeTuFoto.jpg
+        // En el código se pone así: "CALENDARIO/NombreDeTuFoto.jpg"
+        const monthPhotos = [
+            "CALENDARIO/2.jpeg", // ENERO
+            "CALENDARIO/IMG_9077.jpg", // FEBRERO
+            "CALENDARIO/IMG_9664.jpg", // MARZO
+            "CALENDARIO/IMG_9667.jpg", // ABRIL
+            "CALENDARIO/IMG_9074.jpg", // MAYO
+            "CALENDARIO/WhatsApp Image 2026-02-13 at 3.13.01 PM (1).jpeg", // JUNIO
+            "CALENDARIO/WhatsApp Image 2026-02-13 at 3.13.01 PM (3).jpeg", // JULIO
+            "CALENDARIO/WhatsApp Image 2026-02-13 at 3.13.02 PM (2).jpeg", // AGOSTO
+            "CALENDARIO/WhatsApp Image 2026-02-13 at 3.13.02 PM.jpeg", // SEPTIEMBRE
+            "CALENDARIO/WhatsApp Image 2026-02-13 at 3.29.30 PM (4).jpeg", // OCTUBRE
+            "CALENDARIO/WhatsApp Image 2026-02-13 at 3.29.31 PM (1).jpeg", // NOVIEMBRE
+            "CALENDARIO/WhatsApp Image 2026-02-13 at 3.29.31 PM (2).jpeg"  // DICIEMBRE
+        ];
+
+        months.forEach((month, index) => {
+            const card = document.createElement('div');
+            card.className = 'month-card';
+
+            // Generar HTML del mes
+            let daysHTML = '';
+            
+            // Cabeceras de días
+            const headers = ['D', 'L', 'M', 'X', 'J', 'V', 'S'];
+            headers.forEach(h => daysHTML += `<div class="day day-header">${h}</div>`);
+
+            // Espacios vacíos
+            for(let i=0; i<startDay; i++) daysHTML += `<div></div>`;
+
+            // Días
+            for(let d=1; d<=daysInMonth[index]; d++) daysHTML += `<div class="day">${d}</div>`;
+
+            // Actualizar día de inicio para el siguiente mes
+            startDay = (startDay + daysInMonth[index]) % 7;
+
+            // AJUSTE: Para Octubre, Noviembre y Diciembre alineamos la foto arriba para que se vean las cabezas
+            let imgStyle = '';
+            
+            // Abril (3): Se queda en 25%
+            if (index === 3) {
+                imgStyle = 'style="object-position: 50% 25%;"';
+            }
+            // Mayo (4): Subir un poco más (70%)
+            else if (index === 4) {
+                imgStyle = 'style="object-position: 50% 70%;"';
+            }
+            // Junio (5): Se queda en 40%
+            else if (index === 5) {
+                imgStyle = 'style="object-position: 50% 40%;"';
+            }
+            // Agosto (7), Septiembre (8) y Noviembre (10): Ajuste suave (10%)
+            else if (index === 7 || index === 8 || index === 10) { 
+                imgStyle = 'style="object-position: 50% 10%;"';
+            } else if (index >= 9) { // Octubre (9) y Diciembre (11): Tope arriba
+                imgStyle = 'style="object-position: top;"';
+            }
+
+            card.innerHTML = `
+                <div class="photo-area">
+                    <img src="${monthPhotos[index]}" alt="Foto Mes" ${imgStyle}>
+                </div>
+                <div class="month-name">${month}</div>
+                <div class="days-grid">${daysHTML}</div>
+            `;
+            
+            poster.appendChild(card);
+        });
+
+        // Funcionalidad de descarga completa
+        document.getElementById('downloadBtn').addEventListener('click', () => {
+            html2canvas(document.getElementById('calendarPoster'), { scale: 2 }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'calendario_2026_completo.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        });
+    </script>
+</body>
+</html>
